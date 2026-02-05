@@ -1,6 +1,15 @@
 {
 	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
 	"version": 3,
+	"customTemplates": [
+		{
+			"name": "wp-custom-template-full-width-page",
+			"postTypes": [
+				"page"
+			],
+			"title": "Full Width Page"
+		}
+	],
 	"settings": {
 		"appearanceTools": true,
 		"color": {
@@ -129,11 +138,61 @@
 	},
 	"styles": {
 		"blocks": {
+			"core/button": {
+				"border": {
+					"bottom": {
+						"color": "var(--wp--preset--color--accent)",
+						"style": "solid",
+						"width": "5px"
+					},
+					"left": {
+						"color": "var(--wp--preset--color--accent)",
+						"style": "solid",
+						"width": "5px"
+					},
+					"right": {
+						"color": "var(--wp--preset--color--accent)",
+						"style": "solid",
+						"width": "5px"
+					},
+					"top": {
+						"color": "var(--wp--preset--color--accent)",
+						"style": "solid",
+						"width": "5px"
+					}
+				},
+				"color": {
+					"background": "var(--wp--preset--color--contrast)",
+					"text": "var(--wp--preset--color--base)"
+				},
+				"elements": {
+					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--base)"
+						}
+					}
+				}
+			},
 			"core/heading": {
 				"spacing": {
 					"margin": {
 						"bottom": "0.25em",
 						"top": "0.75em"
+					}
+				}
+			},
+			"core/pullquote": {
+				"elements": {
+					"cite": {
+						"typography": {
+							"fontSize": "var(--wp--preset--font--size--medium)"
+						}
+					}
+				},
+				"spacing": {
+					"padding": {
+						"bottom": "var(--wp--preset--spacing--50)",
+						"top": "var(--wp--preset--spacing--50)"
 					}
 				}
 			}
@@ -216,23 +275,21 @@
 			"lineHeight": "1.5"
 		}
 	},
-"templateParts": [
-	 {
-		"area": "header",
-		"name": "header",
-		"title": "Header"
-	 },
-	 { 
-		"area": "footer",
-		"name": "footer",
-		"title": "Footer"
-	 },
-	 {
-		"area": "uncategorized",
-		"name": "sidebar",
-		"title": "Sidebar"
-	 }
-
- ]
-					
+	"templateParts": [
+		{
+			"area": "header",
+			"name": "header",
+			"title": "Header"
+		},
+		{
+			"area": "footer",
+			"name": "footer",
+			"title": "Footer"
+		},
+		{
+			"area": "uncategorized",
+			"name": "sidebar",
+			"title": "Sidebar"
+		}
+	]
 }
