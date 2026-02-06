@@ -63,6 +63,9 @@
 		}
 			add_filter( 'image_size_names_choose', 'mindset_add_custom_image_sizes' );
 
+	// Load custom blocks.
+	require get_theme_file_path() . '/mindset-blocks/mindset-blocks.php';
+
        ?>
 	
                         
