@@ -41,4 +41,80 @@ add_action( 'init', 'mindset_blocks_mindset_blocks_block_init' );
 		);
 	}
 		add_action( 'init', 'mindset_register_custom_fields' );
-?>
+	
+	function mindset_blocks_render_callbacks( $args, $name ) {
+    
+    if ( 'mindset-blocks/services' === $name ) {
+        $args['render_callback'] = 'fwd_render_service_posts';
+    }
+
+    return $args;
+}
+
+add_filter( 'register_block_type_args', 'mindset_blocks_render_callbacks', 10, 2 );
+
+
+function fwd_render_service_posts( $attributes ) {
+
+    ob_start();
+    ?>
+
+    <div <?php echo get_block_wrapper_attributes(); ?>>
+
+        <?php
+        // FIRST QUERY — navigation links
+        $nav_query = new WP_Query( array(
+            'post_type'      => 'service',
+            'posts_per_page' => -1,
+            'orderby'        => 'title',
+            'order'          => 'ASC'
+        ) );
+
+        if ( $nav_query->have_posts() ) : ?>
+            <nav class="services-nav">
+                <?php while ( $nav_query->have_posts() ) : $nav_query->the_post(); ?>
+                    <a href="#post-<?php the_ID(); ?>">
+                        <?php the_title(); ?>
+                    </a>
+                <?php endwhile; ?>
+            </nav>
+        <?php endif;
+
+        wp_reset_postdata();
+
+
+        // SECOND QUERY — full content
+        $query = new WP_Query( array(
+            'post_type'      => 'service',
+            'posts_per_page' => -1,
+            'orderby'        => 'title',
+            'order'          => 'ASC'
+        ) );
+
+        if ( $query->have_posts() ) :
+            while ( $query->have_posts() ) :
+                $query->the_post();
+                ?>
+
+                <article id="post-<?php the_ID(); ?>">
+                    <h2><?php the_title(); ?></h2>
+                    <?php the_content(); ?>
+                </article>
+
+                <?php
+            endwhile;
+        endif;
+
+        wp_reset_postdata();
+        ?>
+
+    </div>
+
+    <?php
+
+    return ob_get_clean();
+}
+
+
+                    
+

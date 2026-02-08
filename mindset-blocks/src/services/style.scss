@@ -1,0 +1,39 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+
+.wp-block-mindset-blocks-services {
+	background-color: #ffffff !important;
+	color: rgb(64, 64, 64) !important;
+	padding: 2px;
+}
+
+.services-nav {
+	margin-bottom: 20px;
+	background-color: #f9f9f9;
+	border: 6px double #fff200;
+	display:flex;
+	flex-direction: row;
+	gap:1rem;
+	margin: 1rem 0;
+	padding: 2em;
+	text-align:center;
+}
+
+.services-nav a {
+	margin-right: 15px;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.services-nav a:hover {
+	text-decoration: underline;
+}
+
+article {
+	margin-bottom: 40px;
+}
