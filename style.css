@@ -54,3 +54,42 @@ svg path {
     opacity: 0;
     color: #fff200;
 }
+
+.wp-block-query {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  
+    /* spacing between posts */
+}
+
+.wp-block-post-template {
+    display: block;
+    /* each post inside the grid */
+}
+
+.entry-content {
+    display: block;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Container for the pagination */
+.wp-block-query-pagination {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;  
+    gap: 20px;   
+    margin-top: 40px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 1200px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.wp-block-query-pagination a {
+    text-decoration: none;
+    color: #003366;
+}
