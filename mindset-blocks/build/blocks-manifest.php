@@ -30,7 +30,7 @@ return array(
 	'company-email' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
-		'name' => 'mindset-blocks/company-address',
+		'name' => 'mindset-blocks/company-email',
 		'version' => '1.0.0',
 		'title' => 'Company Email',
 		'category' => 'text',

@@ -149,7 +149,6 @@ $labels = array(
     'new_item_name'         => __( 'New Work Featured', 'mindset-theme' ),
     'menu_name'             => __( 'Featured', 'mindset-theme' ),
     'template_name'         => __( 'Featured Archives', 'mindset-theme' ),
-    'menu_name'             => __( 'Featured', 'mindset-theme' ),
     'not_found'             => __( 'No featured found.', 'mindset-theme' ),
     'no_terms'              => __( 'No featured', 'mindset-theme' ),
     'items_list_navigation' => __( 'Featured list navigation', 'mindset-theme' ),
@@ -168,7 +167,44 @@ $args = array(
     'rewrite'           => array( 'slug' => 'featured' ),
 );
 
-register_taxonomy( 'fwd-featured', array( 'fwd-work' ), $args );
+register_taxonomy( 'fwd-featured', array( 'fwd-work', 'fwd-testimonial' ), $args );
+
+$labels = array(
+'name'                  => _x( 'Service Types', 'taxonomy general name', 'mindset-theme' ),
+'singular_name'         => _x( 'Service Type', 'taxonomy singular name', 'mindset-theme' ),
+'search_items'          => __( 'Search Service Types', 'mindset-theme' ),
+'all_items'             => __( 'All Service Type', 'mindset-theme' ),
+'parent_item'           => __( 'Parent Service Type', 'mindset-theme' ),
+'parent_item_colon'     => __( 'Parent Service Type:', 'mindset-theme' ),
+'edit_item'             => __( 'Edit Service Type', 'mindset-theme' ),
+'view_item'             => __( 'View Service Type', 'mindset-theme' ),
+'update_item'           => __( 'Update Service Type', 'mindset-theme' ),
+'add_new_item'          => __( 'Add New Service Type', 'mindset-theme' ),
+'new_item_name'         => __( 'New Service Type Name', 'mindset-theme' ),
+'template_name'         => __( 'Service Type Archives', 'mindset-theme' ),
+'menu_name'             => __( 'Service Type', 'mindset-theme' ),
+'not_found'             => __( 'No service types found.', 'mindset-theme' ),
+'no_terms'              => __( 'No service types', 'mindset-theme' ),
+'items_list_navigation' => __( 'Service Types list navigation', 'mindset-theme' ),
+'items_list'            => __( 'Service Types list', 'mindset-theme' ),
+'item_link'             => __( 'Service Type Link', 'mindset-theme' ),
+'item_link_description' => __( 'A link to a service type.', 'mindset-theme' ),
+);
+
+$args = array(
+'hierarchical'      => true,
+'labels'            => $labels,
+'show_ui'           => true,
+'show_in_menu'      => true,
+'show_in_nav_menu'  => true,
+'show_in_rest'      => true,
+'show_admin_column' => true,
+'query_var'         => true,
+'rewrite'           => array( 'slug' => 'service-types' ),
+);
+
+register_taxonomy( 'service-type', array( 'service' ), $args );
+
 }
 
 add_action( 'init', 'mindset_register_taxonomies' );

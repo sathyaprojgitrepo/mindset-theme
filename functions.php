@@ -115,6 +115,13 @@ function mindset_register_service_cpt() {
 add_action( 'init', 'mindset_register_service_cpt' );
 
 
+
+
+
+
+
+
+
        
 	
                         

@@ -53,7 +53,6 @@ add_action( 'init', 'mindset_blocks_mindset_blocks_block_init' );
 
 add_filter( 'register_block_type_args', 'mindset_blocks_render_callbacks', 10, 2 );
 
-
 function fwd_render_service_posts( $attributes ) {
 
     ob_start();
@@ -63,18 +62,18 @@ function fwd_render_service_posts( $attributes ) {
 
         <?php
         // FIRST QUERY — navigation links
-        $nav_query = new WP_Query( array(
-            'post_type'      => 'service',
+        $nav_query = new WP_Query(array(
+            'post_type' => 'service',
             'posts_per_page' => -1,
-            'orderby'        => 'title',
-            'order'          => 'ASC'
-        ) );
+            'orderby' => 'title',
+            'order' => 'ASC'
+        ));
 
         if ( $nav_query->have_posts() ) : ?>
             <nav class="services-nav">
                 <?php while ( $nav_query->have_posts() ) : $nav_query->the_post(); ?>
-                    <a href="#post-<?php the_ID(); ?>">
-                        <?php the_title(); ?>
+                    <a href="#post-<?php echo esc_attr( get_the_ID() ); ?>">
+                        <?php echo esc_html( get_the_title() ); ?>
                     </a>
                 <?php endwhile; ?>
             </nav>
@@ -83,38 +82,57 @@ function fwd_render_service_posts( $attributes ) {
         wp_reset_postdata();
 
 
-        // SECOND QUERY — full content
-        $query = new WP_Query( array(
-            'post_type'      => 'service',
-            'posts_per_page' => -1,
-            'orderby'        => 'title',
-            'order'          => 'ASC'
-        ) );
+        // Services grouped by taxonomy
+        $taxonomy = 'service-type';
 
-        if ( $query->have_posts() ) :
-            while ( $query->have_posts() ) :
-                $query->the_post();
-                ?>
+        $terms = get_terms(array(
+            'taxonomy' => $taxonomy,
+            'hide_empty' => false,
+        ));
 
-                <article id="post-<?php the_ID(); ?>">
-                    <h2><?php the_title(); ?></h2>
-                    <?php the_content(); ?>
-                </article>
+        if ( $terms && ! is_wp_error( $terms ) ) :
+            foreach ( $terms as $term ) :
 
-                <?php
-            endwhile;
+                $query = new WP_Query(array(
+                    'post_type' => 'service',
+                    'posts_per_page' => -1,
+                    'orderby' => 'title',
+                    'order' => 'ASC',
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => $taxonomy,
+                            'field' => 'term_id',
+                            'terms' => array( $term->term_id ),
+
+                        )
+                    ),
+                ));
+              
+
+                if ( $query->have_posts() ) :
+        ?>
+
+            <section>
+                <h2><?php echo esc_html( $term->name ); ?></h2>
+
+                <?php while ( $query->have_posts() ) : $query->the_post(); ?>
+                    <article id="post-<?php echo esc_attr( get_the_ID() ); ?>">
+                        <h3><?php echo esc_html( get_the_title() ); ?></h3>
+                        <?php the_content(); ?>
+                    </article>
+                <?php endwhile; ?>
+
+                <?php wp_reset_postdata(); ?>
+            </section>
+
+        <?php
+                endif;
+            endforeach;
         endif;
-
-        wp_reset_postdata();
         ?>
 
     </div>
 
     <?php
-
     return ob_get_clean();
 }
-
-
-                    
-
